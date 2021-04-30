@@ -7,9 +7,9 @@
 import Foundation
 
 class BankManager {
-    let queue = OperationQueue()
+    let bankerQueue = OperationQueue()
     var banker: Int
-    var customer: Int
+    var customer: Int = 0
     
     init(banker: Int) {
         self.banker = banker
