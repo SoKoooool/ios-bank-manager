@@ -37,6 +37,18 @@ class BankManager {
         clients.append(client)
     }
     
+    func sortClient() {
+        for y in 0..<clients.count {
+            for x in 0..<clients.count {
+                if clients[y].clientClass > clients[x].clientClass {
+                    let tempClientInformation = clients[y]
+                    clients[y] = clients[x]
+                    clients[x] = tempClientInformation
+                }
+            }
+        }
+    }
+    
     private func addToClient(number: UInt) {
         
         let block1 = BlockOperation {
@@ -72,6 +84,7 @@ class BankManager {
         for _ in 1...number {
             generateClient()
         }
+        sortClient()
         addToClient(number: number)
         closeBank()
     }
