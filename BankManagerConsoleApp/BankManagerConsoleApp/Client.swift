@@ -8,14 +8,14 @@
 import Foundation
 
 enum ClientType: Int, CaseIterable, Comparable {
-    case vvip = 0
-    case vip = 1
-    case normal = 2
+    case VVIP = 0
+    case VIP = 1
+    case 일반 = 2
     
     static func < (lhs: ClientType, rhs: ClientType) -> Bool {
-        if (lhs == .normal && rhs == .vip)
-        || (lhs == .normal && rhs == .vvip)
-        || (lhs == .vip && rhs == .vvip) {
+        if (lhs == .일반 && rhs == .VIP)
+        || (lhs == .일반 && rhs == .VVIP)
+        || (lhs == .VIP && rhs == .VVIP) {
             return true
         } else {
             return false
@@ -24,8 +24,8 @@ enum ClientType: Int, CaseIterable, Comparable {
 }
 
 enum BusinessType: Double, CaseIterable {
-    case deposit = 0.7
-    case loan = 1.1
+    case 예금 = 0.7
+    case 대출 = 1.1
 }
 
 struct Client {

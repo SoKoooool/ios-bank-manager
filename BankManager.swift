@@ -10,8 +10,8 @@ class BankManager {
     let counter = OperationQueue()
     var clients = [Client]()
     
-    private var numberOfClient: UInt = 0
     private var numberOfTeller: UInt
+    private var totalNumberOfClient: UInt = 0
     private var waitingNumber: UInt = 0
     
     init(numberOfTeller: UInt) {
@@ -26,7 +26,6 @@ class BankManager {
     
     private func generateClient() {
         waitingNumber += 1
-        
         guard let randomClientClass = ClientType.allCases.randomElement(),
               let randomBusinessType = BusinessType.allCases.randomElement() else {
             return
@@ -67,21 +66,25 @@ class BankManager {
     }
     
     func processOfTellerTask() {
-        let number = generateNumberOfClient()
-        numberOfClient = number
-        for _ in 1...number {
+        let numberOfClient = generateNumberOfClient()
+        totalNumberOfClient = numberOfClient
+        for _ in 1...numberOfClient {
             generateClient()
         }
         sortedByClientPriority()
-        addToClient(number: number)
+        addToClient(number: numberOfClient)
         counter.waitUntilAllOperationsAreFinished()
         closeBank()
     }
     
     func closeBank() {
-        waitingNumber = 1
-        let closeBankMessage = "업무가 마감되었습니다. 오늘 업무를 처리한 고객은 총 \(Int(numberOfClient))명이며, 총 업무시간은 \(Double(numberOfClient) * 0.7)초입니다."
+        totalNumberOfClient = waitingNumber
+        
+        let closeBankMessage = "업무가 마감되었습니다. 오늘 업무를 처리한 고객은 총 \(Int(totalNumberOfClient))명이며, 총 업무시간은 \(Double(totalNumberOfClient) * 0.7)초입니다."
         
         print(closeBankMessage)
+        
+        waitingNumber = 0
+        totalNumberOfClient = 0
     }
 }
