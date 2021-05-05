@@ -8,9 +8,9 @@
 import Foundation
 
 enum ClientType: Int, CaseIterable, Comparable {
-    case VVIP = 0
+    case VVIP = 2
     case VIP = 1
-    case 일반 = 2
+    case 일반 = 0
     
     static func < (lhs: ClientType, rhs: ClientType) -> Bool {
         if (lhs == .일반 && rhs == .VIP)

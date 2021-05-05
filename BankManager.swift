@@ -39,7 +39,7 @@ class BankManager {
     func sortedByClientPriority() {
         for y in 0..<clients.count {
             for x in 0..<clients.count {
-                if clients[y].clientClass > clients[x].clientClass {
+                if clients[y].clientClass < clients[x].clientClass {
                     let tempClientInformation = clients[y]
                     clients[y] = clients[x]
                     clients[x] = tempClientInformation
