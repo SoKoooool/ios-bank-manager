@@ -37,7 +37,7 @@ class BankManager {
         clients.append(client)
     }
     
-    func sortClient() {
+    func sortedByClientPriority() {
         for y in 0..<clients.count {
             for x in 0..<clients.count {
                 if clients[y].clientClass > clients[x].clientClass {
@@ -50,25 +50,13 @@ class BankManager {
     }
     
     private func addToClient(number: UInt) {
-        
-        let block1 = BlockOperation {
-            for index in 0..<self.numberOfClient {
-                self.workTask(order: self.clients[Int(index)])
-            }
-        }
-        let block2 = BlockOperation {
-            for index in 0..<self.numberOfClient {
-                self.workTask(order: self.clients[Int(index)])
-            }
-        }
-        let block3 = BlockOperation {
-            for index in 0..<self.numberOfClient {
-                self.workTask(order: self.clients[Int(index)])
-            }
-        }
-        counter.addOperations([block1, block2, block3], waitUntilFinished: true)
-    }
-    
+           for index in 0..<clients.count {
+               counter.addOperation {
+                   self.workTask(order: self.clients[index])
+               }
+           }
+       }
+
     func workTask(order: Client) {
         let tellerStartWorkMessage = "\(order.waitingNumber)번 \(order.clientClass)고객님 \(order.businessType)업무 시작"
         let tellerFinishWorkMessage = "\(order.waitingNumber)번 \(order.clientClass)고객님 \(order.businessType)업무 완료★"
@@ -84,8 +72,9 @@ class BankManager {
         for _ in 1...number {
             generateClient()
         }
-        sortClient()
+        sortedByClientPriority()
         addToClient(number: number)
+        counter.waitUntilAllOperationsAreFinished()
         closeBank()
     }
     
