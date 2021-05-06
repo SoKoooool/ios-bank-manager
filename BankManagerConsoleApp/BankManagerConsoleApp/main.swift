@@ -6,7 +6,7 @@
 
 import Foundation
 
-var numberOfTellr: UInt = 3
+var numberOfTeller: UInt = 3
 var isRepeat = true
 
 enum InputErrorType: String, Error, CustomStringConvertible {
@@ -40,7 +40,7 @@ private func selectOfResult() {
         
         switch userText {
         case "1":
-            let bankManager = BankManager(numberOfTeller: numberOfTellr)
+            let bankManager = BankManager(numberOfTeller: numberOfTeller)
             bankManager.processOfTellerTask()
         case "2":
             isRepeat = false

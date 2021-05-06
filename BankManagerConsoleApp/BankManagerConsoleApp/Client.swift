@@ -32,4 +32,5 @@ struct Client {
     let waitingNumber: UInt
     let clientClass: ClientType
     let businessType: BusinessType
+    var workIsDone: Bool
 }
